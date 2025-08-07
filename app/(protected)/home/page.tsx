@@ -10,6 +10,7 @@ export default function HomePage() {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Comment[]>([]);
   const [username, setUsername] = useState('');
+  const [isImageLoading, setIsImageLoading] = useState(true);
   const router = useRouter();
 
   const fetchCat = async () => {
@@ -41,7 +42,10 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (catUrl) fetchComments();
+    if (catUrl) {
+      setIsImageLoading(true);
+      fetchComments();
+    }
   }, [catUrl]);
 
   return (
@@ -60,7 +64,21 @@ export default function HomePage() {
       </div>
       <div className="w-full max-w-2xl bg-pink-50 shadow-xl p-6 rounded-2xl mx-auto">
         <div className="text-center">
-          {catUrl && <img src={catUrl} alt="Cat" className="w-full max-h-96 object-contain rounded" />}
+          <div className="relative">
+            {isImageLoading && (
+              <div className="absolute top-0 left-0 w-full max-h-120 h-full bg-pink-200 animate-pulse rounded" />
+            )}
+            {catUrl && (
+              <img
+                src={catUrl}
+                alt="Cat"
+                className="w-full max-h-120 object-contain rounded transition-opacity duration-300"
+                onLoad={() => setIsImageLoading(false)}
+                style={{ opacity: isImageLoading ? 0 : 1 }}
+              />
+            )}
+          </div>
+
           <button
             className="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded font-bold transition"
             onClick={fetchCat}
