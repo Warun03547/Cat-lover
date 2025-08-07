@@ -45,8 +45,8 @@ export default function HomePage() {
   }, [catUrl]);
 
   return (
-    <div className="min-h-screen w-full bg-pink-100 flex flex-col items-center justify-center">
-      <div className="w-full max-w-2xl flex justify-between px-2 mb-2">
+    <div className="min-h-screen w-full bg-pink-100 flex flex-col items-center">
+      <div className="w-full max-w-2xl flex justify-between px-2 mb-2 mt-20">
         <h2 className="text-3xl font-bold text-pink-700">Welcome, {username}</h2>
         <button
           className="text-red-500 underline"
